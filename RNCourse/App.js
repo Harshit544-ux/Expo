@@ -1,56 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,Button, Alert, TextInput } from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
      
-     <Text style={{color:"magenta",fontSize:30,marginBottom:10}}>StyleSheet Css</Text>
+     <Text style={{color:"magenta",fontSize:30,marginBottom:10}}>Core Component</Text>   
 
-      {/* { How to write css  in StyleSheet }}
+      {/* ---- Core Component ----  */}
 
-        ✅ StyleSheet kya hota hai? (Definition)
+       {/* Button */}
+       <Button title='click me' onPress={()=>{Alert.alert("click me")}}/>
 
-       -> StyleSheet React Native ka ek built-in API hai
-       -> jiska use hum UI styles ko ek jagah define karne ke liye karte hain, 
-       -> taaki code clean, reusable aur fast rahe.
-
-        👉 React Native mein CSS file nahi hoti
-        👉 Isliye styles JavaScript object ke form mein likhte hain
-        👉 Aur StyleSheet.create() se define karte hain
+        {/*Text  */}
+        <Text style={styles.text2}>This is Text Component</Text>
+        <Text style={styles.text3}>This is Text Component with border</Text>
+        <Text style={styles.text1}>This is Text Component with blue color</Text>
       
-        🔹 Syntax (Basic Structure) ---
-            const styles = StyleSheet.create({
-              styleName: {
-                property: value,
-              },
-            });
-
-      
-      */}
-
-       {/* Convert this inline css to stylesheet css */}
-      <View>
-       {/* {Stylesheet css} */}
-         <Text style={styles.text1}>Another piece of text</Text>
-      </View>
-
-         {/* {Stylesheet css} */}
-      <View>
-        <Text style={styles.text2}>Yet Another piece of text </Text>
-      </View>
-
-         {/* {Stylesheet css} */}
+       {/* View */}
         <View>
-          <Text style={styles.text3}>React Native Course </Text>
-       </View>
-      
+          <Text>This is View Component</Text>
+        </View>
+
+        {/* TextInput */}
+        <TextInput style={styles.textInput} placeholder='Enter your Name' />
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-   paddingTop:20,
+   paddingTop:30,
     flexDirection:"column",
     justifyContent:"center",
     alignItems:"center",
@@ -77,7 +57,15 @@ const styles = StyleSheet.create({
      borderColor: "red" ,
      padding:10 ,
      marginVertical:10 
+  },
+  textInput:{
+    borderWidth:2,
+    borderColor:"black",
+    padding:10,
+    marginTop:10,
+    width:200
   }
+
  
 
 });
