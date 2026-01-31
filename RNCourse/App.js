@@ -1,71 +1,79 @@
-import { StyleSheet, Text, View,Button, Alert, TextInput } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+
 
 export default function App() {
+   const [enteredGoalText,setEnteredGoalText]=useState('')
+  
+
+   function goalInputHandler(enteredText){
+       setEnteredGoalText(enteredText)
+  
+
+   }
+
+   function addGoalHandler(){
+    console.log(enteredGoalText);
+   }
+
+
   return (
-    <View style={styles.container}>
-     
-     <Text style={{color:"magenta",fontSize:30,marginBottom:10}}>Core Component</Text>   
+    <View style={styles.appcontainer}>
 
-      {/* ---- Core Component ----  */}
+     {/* input and button */}
+      <View style={styles.inputContainer}>
 
-       {/* Button */}
-       <Button title='click me' onPress={()=>{Alert.alert("click me")}}/>
+        <TextInput 
+         style={styles.textInput} 
+         placeholder='Your course goal!'
+        //for the input text we need property called onChangeText  
+         onChangeText={goalInputHandler}
+         />
 
-        {/*Text  */}
-        <Text style={styles.text2}>This is Text Component</Text>
-        <Text style={styles.text3}>This is Text Component with border</Text>
-        <Text style={styles.text1}>This is Text Component with blue color</Text>
-      
-       {/* View */}
-        <View>
-          <Text>This is View Component</Text>
-        </View>
+        <Button title='Add Goal'
+        // when we press the button we want to call addGoalHandler function 
+         onPress={addGoalHandler}
+        />
+      </View>
 
-        {/* TextInput */}
-        <TextInput style={styles.textInput} placeholder='Enter your Name' />
+      {/* showing - list of data */}
+      <View style={styles.goalContainer}>
+        <Text>List of goals...</Text>
+      </View>
 
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-   paddingTop:30,
-    flexDirection:"column",
-    justifyContent:"center",
+  appcontainer: {
+    flex:1,
+   paddingTop:50,
+   paddingHorizontal:16 
+
+
+  },
+  inputContainer:{
+    flexDirection:"row",
+    justifyContent:"space-between",
     alignItems:"center",
-    backgroundColor: '#ffffff',
-    borderWidth:2,
-    borderColor:"red",
-    margin:20
-  
-  },
-  text1:{
-    color:"blue",
-    fontSize:20
-  },
-  text2:{
-    color:"red",
-    borderWidth:2,
-    borderColor: "black",
-    padding:10,
-    marginVertical:2
-  },
-  text3:{
-     color:"green",
-     borderWidth:5 ,
-     borderColor: "red" ,
-     padding:10 ,
-     marginVertical:10 
+    paddingBottom:24,
+    borderBottomWidth:1,
+    borderBottomColor:"#cccccc"
   },
   textInput:{
-    borderWidth:2,
-    borderColor:"black",
-    padding:10,
-    marginTop:10,
-    width:200
-  }
+    borderWidth:1,
+    borderColor:"#cccccc",
+    width:"80%",
+    marginRight:8,
+    padding:8
 
- 
+  },
+  goalContainer:{
+    flex:5
+  }
+  
+
+
 
 });
