@@ -1,121 +1,22 @@
-import { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  ScrollView,
-  FlatList
-}
-  from 'react-native';
+import { View, StyleSheet } from "react-native";
+import TodoList from "./Screens/TodoList";
 
 export default function App() {
-  const [enteredGoalText, setEnteredGoalText] = useState('');
-  const [courseGoals, setCourseGoals] = useState([]);
-
-  // Handler for text input changes
-  function goalInputHandler(enteredText) {
-    setEnteredGoalText(enteredText);
-  }
-
-  // Handler for adding a new goal
-  function addGoalHandler() {
-    // If input is empty, don't add anything
-    if (enteredGoalText.trim().length === 0) {
-      return;
-    }
-    // Update state and clear the input field
-    setCourseGoals((currentCourseGoals) => [...currentCourseGoals, enteredGoalText]);
-    setEnteredGoalText('');
-  }
 
   return (
-    <View style={styles.appcontainer}>
-      {/* Input Area */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Your course goal!"
-          //for the input text we need property called onChangeText 
-          onChangeText={goalInputHandler}
-          value={enteredGoalText} // Important: binds state back to input
-        />
-        <Button title="Add Goal"
-          // when we press the button we want to call addGoalHandler function
-          onPress={addGoalHandler} />
-      </View>
-
-      {/* List Area */}
-      <View style={styles.goalContainer}>
-        {/* 
-          ScrollView allows scrolling when content overflows the screen , 
-          basically in react native we explicitly need to tell that this area is scrollable
-          
-          there is one issue - using scrollview is that it renders all the items at once 
-          so if we have large number of items it can impact performance
-          in that case its better to use FlatList component which only renders items that are currently visible on the screen
-
-         */}
-
-
-        {/* FlatList - optimize the list */}
-        <FlatList contentContainerStyle={{ paddingBottom: 50 }}
-          data={courseGoals}
-          renderItem={
-            (itemData) => (
-              <View style={styles.goalsList}>
-                <Text style={styles.goalsText} >{itemData.item}</Text>
-              </View>
-            )}
-
-      
-           keyExtractor={(item, index) => index.toString()}   
-
-        />
-
-
-
-
-
-      </View>
+    <View style={styles.container}>
+      {/* render the TodoList Screen */}
+      <TodoList />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  appcontainer: {
+  container: {
     flex: 1,
     paddingTop: 50,
     paddingHorizontal: 16,
   },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    width: '75%',
-    marginRight: 8,
-    padding: 8,
-  },
-  goalContainer: {
-    flex: 5,
-    marginTop: 20, // Added space so list doesn't touch the line
-  },
-  goalsList: {
-    marginVertical: 8,
-    padding: 8,
-    borderRadius: 6,
-    backgroundColor: '#5e0acc',
-  },
-  goalsText: {
-    color: 'white',
-    fontSize: 16,
-  },
-});
+
+
+})
