@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('');
@@ -38,13 +38,27 @@ export default function App() {
       </View>
 
       {/* List Area */}
-      <View style={styles.goalContainer}>
-        {/* Map through courseGoals array and display each goal */}
-        {courseGoals.map((goal, index) => (
+      <View style={styles.goalContainer}> 
+         {/* 
+          ScrollView allows scrolling when content overflows the screen , 
+          basically in react native we explicitly need to tell that this area is scrollable
+          
+         there is one issue - using scrollview is that it renders all the items at once 
+         so if we have large number of items it can impact performance
+         in that case its better to use FlatList component which only renders items that are currently visible on the screen
+
+         */}
+
+        <ScrollView  contentContainerStyle={{ paddingBottom: 50 }}> 
+          {/* Map through courseGoals array and display each goal */}
+           {courseGoals.map((goal, index) => (
           <View key={index} style={styles.goalsList}>
             <Text style={styles.goalsText}>{goal}</Text>
           </View>
         ))}
+        </ScrollView>
+
+       
       </View>
     </View>
   );
