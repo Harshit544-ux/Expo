@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  ScrollView,
+  FlatList
+}
+  from 'react-native';
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('');
@@ -32,33 +41,43 @@ export default function App() {
           onChangeText={goalInputHandler}
           value={enteredGoalText} // Important: binds state back to input
         />
-        <Button title="Add Goal" 
-        // when we press the button we want to call addGoalHandler function
-        onPress={addGoalHandler} />
+        <Button title="Add Goal"
+          // when we press the button we want to call addGoalHandler function
+          onPress={addGoalHandler} />
       </View>
 
       {/* List Area */}
-      <View style={styles.goalContainer}> 
-         {/* 
+      <View style={styles.goalContainer}>
+        {/* 
           ScrollView allows scrolling when content overflows the screen , 
           basically in react native we explicitly need to tell that this area is scrollable
           
-         there is one issue - using scrollview is that it renders all the items at once 
-         so if we have large number of items it can impact performance
-         in that case its better to use FlatList component which only renders items that are currently visible on the screen
+          there is one issue - using scrollview is that it renders all the items at once 
+          so if we have large number of items it can impact performance
+          in that case its better to use FlatList component which only renders items that are currently visible on the screen
 
          */}
 
-        <ScrollView  contentContainerStyle={{ paddingBottom: 50 }}> 
-          {/* Map through courseGoals array and display each goal */}
-           {courseGoals.map((goal, index) => (
-          <View key={index} style={styles.goalsList}>
-            <Text style={styles.goalsText}>{goal}</Text>
-          </View>
-        ))}
-        </ScrollView>
 
-       
+        {/* FlatList - optimize the list */}
+        <FlatList contentContainerStyle={{ paddingBottom: 50 }}
+          data={courseGoals}
+          renderItem={
+            (itemData) => (
+              <View style={styles.goalsList}>
+                <Text style={styles.goalsText} >{itemData.item}</Text>
+              </View>
+            )}
+
+      
+           keyExtractor={(item, index) => index.toString()}   
+
+        />
+
+
+
+
+
       </View>
     </View>
   );
