@@ -24,6 +24,13 @@ function TodoList() {
         ]);
     }
 
+    // Handler for deleting the goal
+    function deleteGoalHandler(id){
+        setCourseGoals((currentGoals)=>{
+            return currentGoals.filter((goal)=> goal.id !==id);
+        })
+    }
+
     return (
         <>
             <View style={{ flex: 1 }}>
@@ -42,12 +49,17 @@ function TodoList() {
 
                 */}
 
-                {/* FlatList - optimize the list */}
+                 {/* FlatList - optimize the list */}
                     <FlatList contentContainerStyle={{ paddingBottom: 50 }}
                         data={courseGoals}
                         renderItem={
                             (itemData) => {
-                                return <GoalItem text={itemData.item.text} />
+                                return (
+                                <GoalItem 
+                                 text={itemData.item.text} 
+                                 id={itemData.item.id}
+                                 onDeleteItem={deleteGoalHandler}/>
+                                )
                             }}
 
                         keyExtractor={(item, index) => index.toString()}
